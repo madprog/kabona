@@ -31,6 +31,6 @@ gem 'sqlite3'
 # end
 
 group :development, :test do
-  gem 'cucumber'
   gem 'cucumber-rails'
+  gem 'spork'
 end
