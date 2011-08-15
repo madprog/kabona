@@ -3,7 +3,7 @@ Feature: Count money
     Money should be summed properly.
 
     Scenario: Spending money
-        Given I have an account with $1000
+        Given I have an account "Account" with $1000
         When I buy holiday stuff
             | category | amount |
             | torch    | $20    |
