@@ -4,4 +4,10 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
+module ::Kabona
+  class Application
+    include Rake::DSL
+  end
+end
+
 Kabona::Application.load_tasks
