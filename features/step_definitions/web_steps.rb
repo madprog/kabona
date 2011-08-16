@@ -218,3 +218,7 @@ Then /^I should see a table "([^"]+)" containing:$/ do |selector, table|
     end
   end
 end
+
+Then /^I should be redirected to "([^"]*)"$/ do |route|
+  assert_equal route, current_path
+end
