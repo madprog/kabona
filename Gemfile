@@ -32,5 +32,7 @@ gem 'sqlite3'
 
 group :development, :test do
   gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem 'factory_girl'
   gem 'spork'
 end
