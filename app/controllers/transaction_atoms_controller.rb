@@ -1,0 +1,2 @@
+class TransactionAtomsController < ApplicationController
+end
