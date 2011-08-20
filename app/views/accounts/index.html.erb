@@ -2,12 +2,12 @@
 <% @accounts.each do |account| %>
   <tr>
     <td class="label"><%= link_to account.name, account %></td>
-    <td class="value"><%= number_to_currency account.balance %></td>
+    <td class="<%= "negative " if account.balance < 0 %>value"><%= number_to_currency account.balance %></td>
   </tr>
 <% end %>
   <tr>
     <td class="label">Total</td>
-    <td class="value"><%= number_to_currency @total %></td>
+    <td class="<%= "negative " if @total < 0 %>value"><%= number_to_currency @total %></td>
   </tr>
 </table>
 <a href="<%= new_account_path %>">New account</a>

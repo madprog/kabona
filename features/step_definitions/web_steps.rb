@@ -222,3 +222,12 @@ end
 Then /^I should be redirected to "([^"]*)"$/ do |route|
   assert_equal route, current_path
 end
+
+Then /^I should((?:n't)?) see an element "([^"]*)" matching \/((?:[^\/]|\\\/)*)\/$/ do |not_, selector, expression|
+  should = (not_ == "")
+
+  found = all(selector)
+    .collect { |e| e.native.content =~ /#{expression}/ }
+    .reduce(nil, "|")
+  assert(should == found, "Element was #{"not " if should}found, but it should#{"n't" unless should} have")
+end
