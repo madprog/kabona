@@ -211,12 +211,12 @@ Then /^show me the page$/ do
 end
 
 Then /^I should see a table "([^"]+)" containing:$/ do |selector, table|
-  trs = all("#{selector}>tr")
-  table.raw.equals?(trs) do |tr_val, tr|
-    tr_val.equals?(tr.all("td")) do |td_val, td|
-      assert_equal td_val, td.text
-    end
-  end
+  trs = all("#{selector}>tbody>tr") + all("#{selector}>tfoot>tr")
+  assert(table.raw.equals?(trs) do |tr_val, tr|
+    assert(tr_val.equals?(tr.all("td")) do |td_val, td|
+      td_val === td.text
+    end, "A row was #{tr.all("td").collect { |td| td.native.content }} instead of #{tr_val}")
+  end, "Table was #{trs.collect { |tr| tr.native.content }} instead of #{table}")
 end
 
 Then /^I should be redirected to "([^"]*)"$/ do |route|
