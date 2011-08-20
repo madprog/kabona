@@ -1,4 +1,11 @@
 <table id="accounts_list">
+  <tfoot>
+    <tr>
+      <td class="label">Total</td>
+      <td class="<%= "negative " if @total < 0 %>value"><%= number_to_currency @total %></td>
+    </tr>
+  </tfoot>
+<% if @accounts.length > 0 %>
   <tbody>
 <% @accounts.each do |account| %>
     <tr>
@@ -7,11 +14,6 @@
     </tr>
 <% end %>
   </tbody>
-  <tfoot>
-    <tr>
-      <td class="label">Total</td>
-      <td class="<%= "negative " if @total < 0 %>value"><%= number_to_currency @total %></td>
-    </tr>
-  </tfoot>
+<% end %>
 </table>
 <a href="<%= new_account_path %>">New account</a>
