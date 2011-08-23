@@ -1,0 +1,31 @@
+#accounts_controller {
+	#accounts_list {
+		@include round-corners;
+		border: 1px solid $border-color;
+		margin: auto;
+
+		tr {
+			td {
+				padding: 0.25em 0.5em;
+				text-align: right;
+
+				&:first-child {
+					padding-right: 2em;
+				}
+
+				&.negative {
+					color: red;
+				}
+			}
+		}
+	}
+	
+	.main_title {
+		text-align: center;
+	}
+
+	.list_actions {
+		margin: 1em 0.5em;
+		text-align: center;
+	}
+}

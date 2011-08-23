@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Kabona</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Kabona</title>
+<%= stylesheet_link_tag    "application" %>
+<%= javascript_include_tag "application" %>
+<%= csrf_meta_tags %>
+  </head>
+  <body id="<%= params[:controller].parameterize %>_controller">
+    <div id="navbar">
+<%= yield :navbar %>
+    </div>
+    <div id="content">
 <%= yield %>
-</body>
+    </div>
+  </body>
 </html>
