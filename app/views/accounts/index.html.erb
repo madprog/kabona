@@ -1,0 +1,25 @@
+<% content_for :navbar do %>
+<%= link_to accounts_path do %>Accounts list<% end %>
+<% end %>
+<div class="main_title">Accounts list</div>
+<table id="accounts_list">
+  <tfoot>
+    <tr>
+      <td class="label">Total</td>
+      <td class="<%= "negative " if @total < 0 %>value"><%= number_to_currency @total %></td>
+    </tr>
+  </tfoot>
+<% if @accounts.length > 0 %>
+  <tbody>
+<% @accounts.each do |account| %>
+    <tr>
+      <td class="label"><%= link_to account.name, account %></td>
+      <td class="<%= "negative " if account.balance < 0 %> value"><%= number_to_currency account.balance %></td>
+    </tr>
+<% end %>
+  </tbody>
+<% end %>
+</table>
+<p id="accounts_list_actions" class="list_actions">
+  <a href="<%= new_account_path %>">New account</a>
+</p>

@@ -183,7 +183,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
     end
   end
 end
- 
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -198,7 +198,7 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
   expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
-  
+
   if actual_params.respond_to? :should
     actual_params.should == expected_params
   else
@@ -208,4 +208,26 @@ end
 
 Then /^show me the page$/ do
   save_and_open_page
+end
+
+Then /^I should see a table "([^"]+)" containing:$/ do |selector, table|
+  trs = all("#{selector}>tbody>tr") + all("#{selector}>tfoot>tr")
+  assert(table.raw.equals?(trs) do |tr_val, tr|
+    assert(tr_val.equals?(tr.all("td")) do |td_val, td|
+      td_val === td.text
+    end, "A row was #{tr.all("td").collect { |td| td.native.content }} instead of #{tr_val}")
+  end, "Table was #{trs.collect { |tr| tr.native.content }} instead of #{table}")
+end
+
+Then /^I should be redirected to "([^"]*)"$/ do |route|
+  assert_equal route, current_path
+end
+
+Then /^I should((?:n't)?) see an element "([^"]*)" matching \/((?:[^\/]|\\\/)*)\/$/ do |not_, selector, expression|
+  should = (not_ == "")
+
+  found = all(selector)
+    .collect { |e| e.native.content =~ /#{expression}/ }
+    .reduce(nil, "|")
+  assert(should == found, "Element was #{"not " if should}found, but it should#{"n't" unless should} have")
 end

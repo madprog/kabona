@@ -1,14 +1,14 @@
-Given /^I have an account with \$(\d+)$/ do |amount|
-  @account = Account.new :name => 'An account'
+Given /^I have an account "([^"]+)" with (-?)\$(\d+)$/ do |name, minus, amount|
+  @account = Account.new :name => name
   @account.save!
 
-  @account.new_transaction('initialization') { |ta| ta.new_part :initial, amount } if amount
+  @account.new_transaction('initialization') { |ta| ta.new_part :initial, minus + amount } if amount
 end
 
 When /^I buy (.*)$/ do |description, details|
   @account.new_transaction description do |ta|
     details.hashes.each do |attributes|
-      raise "invalid amount: #{attributes[:amount]}" unless attributes[:amount] =~ /^\$(\d+(?:\.\d\d)?)$/
+      raise "invalid amount: #{attributes[:amount]}" unless attributes[:amount] =~ /^\$(-?\d+(?:\.\d\d)?)$/
       ta.new_part attributes[:category], "-#$1"
     end
   end

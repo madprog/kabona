@@ -17,6 +17,13 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
 
+    when "new account"
+      new_account_path
+
+    when /^atom transactions index of "([^"]+)"$/
+      account = Account.find_by_name $1
+      account_transaction_atoms_path account
+
     else
       begin
         page_name =~ /^the (.*) page$/
